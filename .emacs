@@ -18,6 +18,14 @@
 (global-set-key (quote [M-up]) (quote scroll-down-line))
 
 
+;; MOVE BETWEEN WINDOWS WITH . and ,
+(global-set-key (kbd "C-.") #'other-window)
+(global-set-key (kbd "C-,") #'prev-window)
+
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
+
 
 
 ;; DELETE LINES AND WORDS WITHOUT ADDING TO KILL RING
