@@ -28,6 +28,16 @@
 
 
 
+;; KILL BUFFER ON JUST Y OR N INSTEAD OF YES OR NO
+(defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
+  (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
+    (apply orig-fun r)))
+
+(advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
+
+
+
+
 ;; DELETE LINES AND WORDS WITHOUT ADDING TO KILL RING
 (defun my-delete-word (arg)
 "Delete characters forward until encountering the end of a word.
