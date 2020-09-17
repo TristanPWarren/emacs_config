@@ -1,3 +1,12 @@
+;; ;; TODO: 
+;; ;; (defun toggle-comment-on-line ()
+;; ;;   "comment or uncomment current line"
+;; ;;   (interactive)
+;; ;;   (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+
+
+
+
 
 
 
@@ -5,12 +14,12 @@
 (push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist)
 
 
-;; OPEN THE iBUFFER
+;; ;; OPEN THE iBUFFER
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
 
-;; HIDE TOOLBAR AND MENUE BAR
+;; ;; HIDE TOOLBAR AND MENUE BAR
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -18,7 +27,7 @@
 (global-set-key (quote [M-up]) (quote scroll-down-line))
 
 
-;; MOVE BETWEEN WINDOWS WITH . and ,
+;; ;; MOVE BETWEEN WINDOWS WITH . and ,
 (global-set-key (kbd "C-.") #'other-window)
 (global-set-key (kbd "C-,") #'prev-window)
 
@@ -28,7 +37,7 @@
 
 
 
-;; KILL BUFFER ON JUST Y OR N INSTEAD OF YES OR NO
+;; ;; KILL BUFFER ON JUST Y OR N INSTEAD OF YES OR NO
 (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
     (apply orig-fun r)))
@@ -40,7 +49,7 @@
 
 ;; DELETE LINES AND WORDS WITHOUT ADDING TO KILL RING
 (defun my-delete-word (arg)
-"Delete characters forward until encountering the end of a word.
+  "Delete characters forward until encountering the end of a word.
 With argument, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
@@ -57,7 +66,6 @@ This command does not push text to `kill-ring'."
   (interactive "p")
   (my-delete-word (- arg)))
 
-
 (defun my-delete-line-backward ()
   "Delete text between the beginning of the line to the cursor position.
 This command does not push text to `kill-ring'."
@@ -66,11 +74,16 @@ This command does not push text to `kill-ring'."
     (setq p1 (point))
     (beginning-of-line 1)
     (setq p2 (point))
-    (delete-region p1
+    (delete-region p1 p2)))
 
-(global-set-key (kbd "<M-delete>") 'my-delete-word)		   
-(global-set-key (kbd "<M-backspace>") 'my-backward-delete-word)
+; bind them to emacs's default shortcut keys:
 (global-set-key (kbd "<C-S-backspace>") 'my-delete-line-backward) ; Ctrl+Shift+k
+(global-set-key (kbd "<C-delete>") 'my-delete-word)
+(global-set-key (kbd "<C-backspace>") 'my-backward-delete-word)
+
+
+
+
 
 
 ;; COLOUR SCHEME
